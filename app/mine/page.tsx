@@ -28,7 +28,7 @@ const tools = [
   { icon: Wallet, label: "My Wallet", href: "#" },
   { icon: ArrowRightLeft, label: "Transfer", href: "/transfer" },
   { icon: Download, label: "Wallet Recharge", href: "#" },
-  { icon: Upload, label: "Wallet Withdrawal", href: "#" },
+  { icon: Upload, label: "Wallet Withdrawal", href: "/withdraw" },
   { icon: Users, label: "My Team", href: "#" },
   { icon: MessageSquare, label: "My Messages", href: "#" },
   { icon: UserCircle, label: "Member Center", href: "#" },

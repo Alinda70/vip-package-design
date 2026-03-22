@@ -48,9 +48,9 @@ export function VIPCard({
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <div className="text-3xl font-bold text-white">V{level}</div>
-          <button className="text-sm text-orange-200 hover:underline">
+          <span className="text-sm text-orange-200 hover:underline cursor-pointer">
             View details
-          </button>
+          </span>
           <div className="space-y-1 text-xs text-white/80">
             <p>Daily transfer limit: {dailyLimit}</p>
             <p>Monthly transfer limit: {monthlyLimit}</p>
