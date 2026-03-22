@@ -60,7 +60,7 @@ export default function MinePage() {
   return (
     <main className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <header className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 pb-8 pt-6">
+      <header className="bg-primary px-4 pb-8 pt-6">
         <div className="mx-auto max-w-md">
           <ProfileHeader
             username={user?.username || "Guest"}
