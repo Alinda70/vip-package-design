@@ -2,6 +2,8 @@
 
 import { BottomNav } from "@/components/bottom-nav"
 import { ProfileHeader } from "@/components/profile-header"
+import { Button } from "@/components/ui/button"
+import { createClient } from "@/lib/supabase/client"
 import {
   Wallet,
   ArrowRightLeft,
@@ -15,8 +17,10 @@ import {
   TrendingUp,
   FileText,
   Headphones,
+  LogOut,
 } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const quickActions = [
   { icon: TrendingUp, label: "My Investments", href: "/invest" },
@@ -45,6 +49,14 @@ const stats = [
 
 export default function MinePage() {
   const walletBalance = 1767934.5
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/auth/login')
+    router.refresh()
+  }
 
   return (
     <main className="min-h-screen bg-background pb-20">
@@ -116,6 +128,16 @@ export default function MinePage() {
             ))}
           </div>
         </div>
+
+        {/* Logout Button */}
+        <Button
+          variant="outline"
+          className="mt-6 w-full border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+          onClick={handleLogout}
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          Logout
+        </Button>
       </div>
 
       <BottomNav />
