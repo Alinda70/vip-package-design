@@ -2,6 +2,8 @@
 
 import { BottomNav } from "@/components/bottom-nav"
 import { ProfileHeader } from "@/components/profile-header"
+import { Button } from "@/components/ui/button"
+import { useAuth } from "@/lib/auth-context"
 import {
   Wallet,
   ArrowRightLeft,
@@ -15,8 +17,10 @@ import {
   TrendingUp,
   FileText,
   Headphones,
+  LogOut,
 } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const quickActions = [
   { icon: TrendingUp, label: "My Investments", href: "/invest" },
@@ -45,6 +49,13 @@ const stats = [
 
 export default function MinePage() {
   const walletBalance = 1767934.5
+  const { user, logout } = useAuth()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    logout()
+    router.push("/auth/login")
+  }
 
   return (
     <main className="min-h-screen bg-background pb-20">
@@ -52,7 +63,7 @@ export default function MinePage() {
       <header className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 pb-8 pt-6">
         <div className="mx-auto max-w-md">
           <ProfileHeader
-            username="Jormea"
+            username={user?.username || "Guest"}
             vipLevel={7}
             referralCode="H5773590"
             marginReleaseDate="2027-01-20 20:29"
@@ -116,6 +127,16 @@ export default function MinePage() {
             ))}
           </div>
         </div>
+
+        {/* Logout Button */}
+        <Button
+          variant="outline"
+          className="mt-6 w-full border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+          onClick={handleLogout}
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          Logout
+        </Button>
       </div>
 
       <BottomNav />
