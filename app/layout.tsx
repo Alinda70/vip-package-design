@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Clevva - AI Crypto Trading Platform',
+  description: 'Intelligent AI quantitative trading platform for cryptocurrency investments',
   generator: 'v0.app',
   icons: {
     icon: [
