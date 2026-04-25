@@ -1,32 +1,49 @@
-import { Router } from 'express';
-
-const router = Router();
+import { NextResponse } from 'next/server';
 
 // Mock user data
-let users = [];
+let users: Array<{ id: number; name: string; email: string }> = [];
+
+// Authorization check helper
+function isAuthenticated(): boolean {
+    // TODO: Implement proper authentication logic
+    // For now, returning true as placeholder
+    return true;
+}
 
 // GET all users
-router.get('/', (req, res) => {
+export async function GET() {
     // Authorization check
-    if (!req.isAuthenticated()) {
-        return res.status(401).json({ message: 'Unauthorized' });
+    if (!isAuthenticated()) {
+        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
-    res.json(users);
-});
+    return NextResponse.json(users);
+}
 
 // POST create new user
-router.post('/', (req, res) => {
+export async function POST(request: Request) {
     // Authorization check
-    if (!req.isAuthenticated()) {
-        return res.status(401).json({ message: 'Unauthorized' });
+    if (!isAuthenticated()) {
+        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
-    const { name, email } = req.body;
-    if (!name || !email) {
-        return res.status(400).json({ message: 'Name and email are required' });
-    }
-    const newUser = { id: users.length + 1, name, email };
-    users.push(newUser);
-    res.status(201).json(newUser);
-});
 
-export default router;
+    try {
+        const { name, email } = await request.json();
+
+        if (!name || !email) {
+            return NextResponse.json(
+                { message: 'Name and email are required' },
+                { status: 400 }
+            );
+        }
+
+        const newUser = { id: users.length + 1, name, email };
+        users.push(newUser);
+
+        return NextResponse.json(newUser, { status: 201 });
+    } catch (error) {
+        return NextResponse.json(
+            { message: 'Invalid request body' },
+            { status: 400 }
+        );
+    }
+}
